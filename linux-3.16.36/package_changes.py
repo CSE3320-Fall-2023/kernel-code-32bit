@@ -11,9 +11,9 @@ def create_tarball():
 	global assignment 
 	global username 
 	global filename 
-	os.system("mv *.tgz ../AssignmentHistory");
+	os.system("mv *.tgz ../assignment-history");
         print("Searching for new files:");
-	new_files_result = subprocess.check_output("diff -pqr ../linux-3.16.36/ ../../.backup_do_not_remove/ 2>/dev/null|grep -v \"*\.o\.cmd\" | grep -v \"DocBook\" |grep -v \"vmlinux\" | grep -v \"gitignore\" | grep -v \"builtin-policy\" |grep Only |awk -e \'{print $3$4}\'", shell=True);
+	new_files_result = subprocess.check_output("diff -pqr ../linux-3.16.36/ ../.backup_do_not_remove/ 2>/dev/null|grep -v \"*\.o\.cmd\" | grep -v \"DocBook\" |grep -v \"vmlinux\" | grep -v \"gitignore\" | grep -v \"builtin-policy\" |grep Only |awk -e \'{print $3$4}\'", shell=True);
 	print new_files_result
 	if new_files_result:
 		print "Found "+str(len(new_files_result.split('\n'))-1)+":"
@@ -27,7 +27,7 @@ def create_tarball():
 		print modified_files_result
 
 	if ( ( len( new_files_result.split('\n'))-1 == 0 ) and ( len( modified_files_result.split('\n'))-1 == 0 ) ):
-		print("No modified files found!")
+		print("No new or modified files found!")
 		sys.exit(2)
 
         print("Creating the tarball to submit.");
